@@ -50,6 +50,7 @@ const elements = {
   library: document.querySelector('#library'),
   pageTitle: document.querySelector('#pageTitle'),
   previewCount: document.querySelector('#previewCount'),
+  resultCount: document.querySelector('#resultCount'),
   searchInput: document.querySelector('#searchInput'),
   styleCount: document.querySelector('#styleCount'),
   syncStatus: document.querySelector('#syncStatus'),
@@ -181,7 +182,7 @@ function mediaMarkup(style, cardIndex) {
 
   return `
     <figure class="preview">
-      <video class="lazy-media" data-src="${escapeHtml(style.media.url)}" muted loop playsinline preload="none"
+      <video class="lazy-media" data-src="${escapeHtml(style.media.url)}" muted loop playsinline preload="metadata"
         aria-label="${title}" data-key="${cardIndex}"></video>
       <button class="video-expand" type="button" aria-label="${escapeHtml(text('fullscreen'))} ${title}"
         data-expand-key="${cardIndex}" title="${escapeHtml(text('fullscreen'))}">
@@ -308,6 +309,7 @@ function render() {
   elements.library.innerHTML = cards.map((card, index) => cardMarkup(card, index)).join('');
   elements.library.setAttribute('aria-busy', 'false');
   elements.emptyState.hidden = cards.length > 0;
+  elements.resultCount.textContent = text('resultCount').replace('{n}', cards.length);
   restoreFocus(focusMark);
   observeMedia();
 }
@@ -641,6 +643,9 @@ if (state.filter !== 'all') {
     item.classList.toggle('is-active', active);
     item.setAttribute('aria-pressed', String(active));
   });
+}
+if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  document.querySelectorAll('.reel video').forEach((video) => video.pause());
 }
 applyLanguage();
 showLoadingCards();

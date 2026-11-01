@@ -16,6 +16,8 @@ diff -rq <临时目录>/video-shotcraft-cards <库根目录>
 
 新压缩包里可能带有本仓库已清理掉的打包和上游站点文件（`PACKAGE-MANIFEST.json`、库内 `SKILL.md`、`agents/`、`gallery/index.html`、`gallery/library.html`、`gallery/app.js`、`gallery/build-seo.py`、`gallery/fetch-media.sh`、`llms.txt`、`robots.txt`、`sitemap.xml`、`og-image.jpg`）。合并时不要带回来。
 
+画廊界面和品牌信息已经按本仓库重新设计。`gallery/library-offline.html`、`styles.css`、`app-offline.js`、`logo-mark.svg` 不要被新包覆盖，`translations.js` 只合并新卡的翻译，保留界面文案。根目录 `README.md` 和 `docs/assets/` 也属于本仓库。
+
 ## 新增一张卡
 
 1. 新建 `references/shots/<分类>/<卡名>.md`。卡名用 kebab-case，文件名必须和 front matter 的 `name` 一致：
